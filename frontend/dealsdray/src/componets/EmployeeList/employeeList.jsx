@@ -23,7 +23,7 @@ const nav=useNavigate()
 useEffect(()=>{
 
   get_emp_list(setloader,setemp_list,setsearch_term);
-  
+
 },[])
 
 
@@ -61,7 +61,7 @@ function search(e)
           </span>
         </div>
         <div className="line mb-3 "></div>
-        <Table>
+        <Table striped bordered hover size="sm">
 
           <thead>
             <tr>

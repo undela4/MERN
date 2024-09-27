@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { onsuccess } from '../../Tostify';
+import { Popconfirm } from 'antd';
+
 import axios from 'axios';
 
 export default function Tablerow({ uniqueId, image, name, email, mobileNo, designation, gender, course, createDate, }) {
@@ -46,7 +48,7 @@ async function deleteEmp()
       <td>{ formatDate(createDate)}</td>
       <td>
           <button className='me-3 btn btn-outline-danger' onClick={()=>edit(uniqueId)}>Edit</button>
-          <button className='btn btn-danger' onClick={deleteEmp}>Delete</button>
+          <button className='btn btn-danger'><Logout method={deleteEmp}/></button>
 
             </td>
     </tr>
@@ -77,3 +79,21 @@ function formatDate(dateString) {
   return `${day}-${month}-${year}`;
 }
 
+
+
+function Logout({method}){
+
+  return(
+      <>
+      <Popconfirm
+          title="Delete employee"
+          description="Are you sure to delete ?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={method}
+      >
+  Delete
+</Popconfirm>
+</>
+  )
+}
