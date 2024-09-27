@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navbar.css'
-import { Button, Popconfirm } from 'antd';
-
-
+import { Popconfirm } from 'antd';
+import { UserContext } from '../../../usecontext';
+import Cooikes from 'js-cookies'
 
 
 export default function Navbar() {
 
-    const [f,setf] = useState(false)
-    
+  
+    const {user,logout}=useContext(UserContext);
+    const name=Cooikes.getItem('user');
+
+
     
   return (
     <>
       <nav>
-        <div className="nav-bar">
+        <div className="nav-bar mt-3">
         <img className="logo" src="https://play-lh.googleusercontent.com/Im3CE-kmZJmZMC8pkhpCj7tGznPI6LC1EjhaTJ3E6Cdh_mgW5VxF_joZK31XWwZPmkT5" ></img>
-        <NavLink className={'nav-items'}>Home</NavLink>
+        <NavLink className={'nav-items'} to='/home'>Home</NavLink>
         <NavLink className={'nav-items'} to='/emplist'>Employee List</NavLink>
 
 
-        {!f&&<NavLink className={'nav-items'}>Name-</NavLink>}
+        {user&&<NavLink className={'nav-items'}>{name}-</NavLink>}
 
         {
-        f?<NavLink className={'nav-items'}>Login</NavLink>
+        !user?<NavLink className={'nav-items'}>Login</NavLink>
         
-        :<NavLink className={'nav-items'}><Logout f={f} setf={setf}/></NavLink>
+        :<NavLink className={'nav-items'}><Logout method={logout}/></NavLink>
         }
 
 
@@ -39,7 +42,7 @@ export default function Navbar() {
 }
 
 
-function Logout({f,setf}){
+function Logout({method}){
 
     return(
         <>
@@ -48,8 +51,7 @@ function Logout({f,setf}){
             description="Are you sure to Logout ?"
             okText="Yes"
             cancelText="No"
-            onConfirm={()=>setf(!f)}
-
+            onConfirm={method}
         >
     Logout
   </Popconfirm>

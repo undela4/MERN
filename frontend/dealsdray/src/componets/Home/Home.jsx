@@ -7,8 +7,8 @@ export default function Home() {
 
 
   return (
-    <div className='container mt-3'>
-     <Navbar/> 
+    <div className='container'>
+     {/* <Navbar/>  */}
      <Welcome/> 
     </div>
   )
